@@ -44,12 +44,13 @@ A running list of problems that were not obvious, and how they were solved. Add 
 
 ## Running
 
-### Plot, Raw Plot, ME1LE General or ME1LE Inventory fail in a release exe
+### `Failed to parse /databases/me3_plot_db.ron` with `The system cannot find the path specified. (os error 3)`
 
-Found by reading the code, not yet reproduced.
+The tab stays on `Loading database...` behind the error. Despite the wording, nothing is being parsed: the file is missing.
 
-- **Cause:** these views load `databases/*.ron`, and release builds look for that folder next to the exe. `target/release/` doesn't have one. Debug builds use the current directory, and the installer copies the folder into place.
+- **Cause:** views that need a database load `databases/*.ron`, and release builds look for that folder next to the exe. `target/release/` doesn't have one. Debug builds use the current directory, and the installer copies the folder into place.
 - **Fix:** copy `databases/` next to the exe: `cp -r databases target/release/`.
+- **Tested:** reproduced and fixed on the ME3 Plot tab, and the ME3 Raw Plot tab loads after the fix. From the code, the ME1, ME1LE and ME2 views that use a database should behave the same way, including ME1LE General and Inventory, but those weren't run.
 
 ### Checking that the built app really works
 
