@@ -1,9 +1,12 @@
 name: CI
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  # Disabled for now: this workflow only runs when started by hand.
+  # To re-enable it, restore these triggers:
+  # push:
+  #   branches: [ main ]
+  # pull_request:
+  #   branches: [ main ]
+  workflow_dispatch:
 
 env:
   CARGO_TERM_COLOR: always
